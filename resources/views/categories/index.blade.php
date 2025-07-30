@@ -12,14 +12,16 @@
         <p>
             <b>Name</b>: {{ $category->name }}<br />
             <b>Description</b>: {{ $category->description ?: 'Non rempli.' }}<br />
+            <br>
             <a href="{{ route('categories.show', $category->id) }}">Details</a>
             <br />
+            <br>
             <a href="{{ route('categories.edit', $category->id) }}">Modifier</a>
             <br />
             <form action="{{ route('categories.destroy', $category->id) }}" method="post" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette catégorie ? Cette action sera irréversible !')">
                 @csrf
                 @method('DELETE')
-                <button type="submit">Supprimer</button>
+                <button type="submit" style="background-color: red">Supprimer</button>
             </form>
         </p>
     @endforeach
