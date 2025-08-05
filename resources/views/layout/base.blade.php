@@ -7,17 +7,20 @@
     <title>Gestion de Produits</title>
 </head>
 <style>
-    body{
-        text-align: center;
-        align-content: center
-        position: relative;
-        background-color: #273E47;
-        color: white;
-        padding: 20px;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        justify-content: center;
-    }
+    
+    body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;     
+    align-items: center;          
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: black;              
+    background-color: #f0f0f0;   
+}
 
     nav ul{
         display: flex;
@@ -33,7 +36,7 @@
     }
 
     a{
-        color: rgb(255, 255, 255);
+        color: rgb(3, 40, 43);
         text-decoration: none;
         font-weight: bold;
     }
@@ -43,27 +46,16 @@
         background-color: goldenrod;
     }
 
-    input, textarea{
-        width: 30%;
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
+    .form-container {
+        background: #fff;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }   
 
-    input:focus, textarea:focus, button:focus{
-        border-color: #03B5AA;
-        outline: none;
-    }
-
-    button{
-        background-color: #03B5AA;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+    
 </style>
 <body>
     <nav>
@@ -74,8 +66,28 @@
                 </a>
             </li>
             <li>
+                <a href="{{route('auth.registration')}}">
+                    Inscription
+                </a>
+            </li>
+            <li>
+                <a href="{{route('auth.login')}}">
+                    Connexion
+                </a>
+            </li>
+            <li>
+                <a href="'{{route('profiles.profile')}}">
+                    Profils
+                </a>
+            </li>
+            <li>
                 <a href="{{route('categories.index')}}">
                     Catégories
+                </a>
+            </li>
+            <li>
+                <a href="{{route('products.index')}}">
+                    Produits
                 </a>
             </li>
         </ul>

@@ -45,12 +45,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+   public function show($id)
     {
-        $category = Category::find($id);
-        return view('categories.show', [
-            'category' => $category,
-        ]);
+        // Eager load the 'products' relationship
+        $category = \App\Models\Category::with('products')->findOrFail($id);
+
+        return view('categories.show', compact('category'));
     }
 
     /**
