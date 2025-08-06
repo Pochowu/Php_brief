@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -31,13 +31,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //  Cette ligne signifie que le nom saisi doit etre unique dans la table et ne doit pas etre supérieur à 255 Les | permettent de listes les ordres et sont appéles pipe
         $request->validate([
-            'name' => 'required|unique:categories|max:255',
+            'name' => 'required|unique:categories|max:255', 
         ]);
 
         Category::create([
+            'user_id'=> Auth::id(),
             'name' => $request->name,
-            'description' => $request->description,
+            'description' =>$request->description,
         ]);
         return redirect()->route('categories.index')->with('success', "Catégorie ajoutée avec succès.");
     }
@@ -45,12 +47,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-   public function show($id)
+    public function show(string $id)
     {
-        // Eager load the 'products' relationship
-        $category = \App\Models\Category::with('products')->findOrFail($id);
-
-        return view('categories.show', compact('category'));
+        $category = Category::find($id);
+        return view('categories.show', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -72,7 +74,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|max:255',
         ]);
-
+        
         Category::find($id)->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -83,9 +85,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        Category::find($id)->delete();
-        return redirect()->route('categories.index')->with('success', "Catégorie supprimée avec succès.");
-    }
+    // public function destroy(string $id)
+    // {
+    //     Category::find($id)->delete();
+    //     return redirect()->route('categories.index')->with('success', "Catégorie supprimée avec succès.");
+    // }
 }

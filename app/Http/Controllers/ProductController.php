@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Models\Category;
-class ProductController extends Controller
+use Illuminate\Support\Facades\Auth;
+class ProductControlleur extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::all(); // Or however you retrieve your products
-        return view('products.index', ['products' => $products]);
+        $products = Product::all();
+        return view('products.index', [
+            'products' => $products,
+        ]);
     }
-
 
     /**
      * Show the form for creating a new resource.
      */
-     // Assure-toi d'importer le modèle
-
     public function create()
     {
-        $categories = Category::all(); // Récupère toutes les catégories depuis la BDD
-        return view('products.create', compact('categories')); // Envoie à la vue
+        return view('products.create', [
+            'categories' => Category::all()      
+          ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -35,42 +35,47 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:categories|max:255',
+            'name' => 'required|unique:products|max:255', 
+            // 'description' => 'nullable|string',
         ]);
 
         Product::create([
+            'user_id'=> Auth::id(),
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'category_id' => $request->category_id, // Assuming you have a category_id
+            'category_id' => $request->category_id,
         ]);
-        return redirect()->route('products.index')->with('success', "Produits ajoutée avec succès.");
+
+        return redirect()->route('products.index')->with('success', "Produit ajouté avec succès.");
     }
 
     /**
      * Display the specified resource.
      */
-        public function show(string $id)
+    public function show($id)
     {
-        $product = Product::findOrFail($id);
+        // $product = Product::findOrFail($id);
+        // return view('products.show', compact('product'));
+
+        $product = Product::find($id);
         return view('products.show', [
-            'product' => $product, // ✅ Utilise le bon nom
+            'product'=> $product,
         ]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    
-
-        public function edit(string $id)
+    public function edit(string $id)
     {
-        $product = Product::findOrFail($id);
-        $categories = Category::all();
-        return view('products.edit', compact('product', 'categories'));
+        $product = Product::find($id);
+        return view('products.edit', [
+            'product' => $product,
+        ]);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -79,16 +84,16 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
+            // 'description' => 'nullable|string',
         ]);
 
-        Product::find($id)->update([
+        $product = Product::findOrFail($id);
+        $product->update([
             'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'category_id' => $request->category_id, // Assuming you have a category_id
         ]);
-        return back()->with('success', "Produit ajoutée avec succès.");
+
+        return redirect()->route('products.index')->with('success', "Produit mis à jour avec succès.");
     }
 
     /**
@@ -96,7 +101,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::find($id)->delete();
-        return redirect()->route('products.index')->with('success', "Produit supprimée avec succès.");
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('products.index')->with('success', "Produit supprimé avec succès.");
     }
 }

@@ -13,32 +13,32 @@
         </div>
     @endif
 
-    <form action="{{ route('products.store') }}" method="post" style="background-color: #0743f8; padding: 20px; border-radius: 8px; width: 400px; margin: 0 auto; ">
+    <form action="{{ route('products.store') }}" method="post" style="background-color: #ffffff; padding: 20px; border-radius: 8px; width: 400px; margin: 0 auto; box-shadow:0px 4px 28px rgba(1, 170, 254, 0.991);">
         @csrf
 
         <label for="name" style="font-weight: bold; display: block; margin-bottom: 5px;">Nom</label>
         <input type="text" name="name" id="name" value="{{ old('name') }}"
                placeholder="Saisir le nom du produit ..."
-               style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required />
+               style="width: 80%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required />
 
         <label for="description" style="font-weight: bold; display: block; margin-bottom: 5px;">Description</label>
         <input type="text" name="description" id="description" value="{{ old('description') }}"
                placeholder="Saisir la description du produit ..."
-               style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" />
+               style="width: 80%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" />
 
         <label for="price" style="font-weight: bold; display: block; margin-bottom: 5px;">Prix</label>
         <input type="number" name="price" id="price" value="{{ old('price') }}"
                placeholder="Saisir le prix du produit ..." step="0.01"
-               style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" />
+               style="width: 80%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" />
 
         <label for="quantity" style="font-weight: bold; display: block; margin-bottom: 5px;">Quantité</label>
         <input type="number" name="quantity" id="quantity" value="{{ old('quantity') }}"
                placeholder="Saisir la quantité du produit ..."
-               style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required />
+               style="width: 80%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required />
 
          <label for="category_id" style="font-weight: bold; display: block; margin-bottom: 5px;">Catégorie</label>
         <select name="category_id" id="category_id"
-                style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required>
+                style="width: 80%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px;" required>
             <option value="">-- Choisir une catégorie --</option>
             @foreach($categories as $category)
                 <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>

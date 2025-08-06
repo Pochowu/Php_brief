@@ -58,40 +58,43 @@
     
 </style>
 <body>
-    <nav>
-        <ul>
+   <nav>
+    <ul>
+        <li>
+            <a href="{{ route('home') }}">Home</a>
+        </li>
+
+        @guest
+            {{-- <li>
+                <a href="{{ route('auth.registration') }}">Inscription</a>
+            </li> --}}
             <li>
-                <a href="{{route('home')}}">
-                    Home
-                </a>
+                <a href="{{ route('auth.login') }}">Connexion</a>
+            </li>
+        @endguest
+
+        @auth
+            <li>
+                <a href="{{ route('profiles.profile') }}">Profils</a>
             </li>
             <li>
-                <a href="{{route('auth.registration')}}">
-                    Inscription
-                </a>
+                <a href="{{ route('categories.index') }}">Catégories</a>
             </li>
             <li>
-                <a href="{{route('auth.login')}}">
-                    Connexion
-                </a>
+                <a href="{{ route('products.index') }}">Produits</a>
             </li>
             <li>
-                <a href="'{{route('profiles.profile')}}">
-                    Profils
-                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" style="background: none; border: none; color: rgb(3, 40, 43); font-weight: bold; cursor: pointer;">
+                        Déconnexion
+                    </button>
+                </form>
             </li>
-            <li>
-                <a href="{{route('categories.index')}}">
-                    Catégories
-                </a>
-            </li>
-            <li>
-                <a href="{{route('products.index')}}">
-                    Produits
-                </a>
-            </li>
-        </ul>
-    </nav>
+        @endauth
+    </ul>
+</nav>
+
 
     @yield('content')
 </body>

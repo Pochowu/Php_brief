@@ -5,12 +5,12 @@
         color: #333;
     }
     form {
-        max-width: 200px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 20px;
-        background: linear-gradient(to bottom left, #f6f6f6,#0c3665);
+        background-color:white ;
         border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(252, 3, 3, 0.959);
+        box-shadow: 0 2px 20px rgba(1, 122, 84, 0.959);
     }
     label {
         display: block;

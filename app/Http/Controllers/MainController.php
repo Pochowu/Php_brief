@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // ✅ ligne correcte
+use App\Models\User;
 
 class MainController extends Controller
 {
@@ -18,7 +20,12 @@ class MainController extends Controller
         return view('auth.registration');
     }
 
-    public function profile() {
-        return view('profiles.profile');
-    }
+   public function profile()
+{
+    $user = Auth::user();
+    $products = $user->products;
+    $categories = $user->categories;
+
+    return view('profiles.profile', compact('user', 'products', 'categories'));
+}
 }
